@@ -14,14 +14,9 @@ for(var i = 0; i < ints.length; i++)
     // Process each individual digit in the integer
     for(place; place >= 1; place /= 10)
     {
-        var count = 0;
-        
-        // Count the number of times place needs to be subtracted from ints[i] to get rid of the first digit
-        for(count; ints[i] >= place; count++)
-        {
-            ints[i] -= place;
-        }
-        outputDigit(count); // Print the verbose count 
+        var digit = ints[i] / place; // Integer division rounds down, so 355 / 100 = 3
+        ints[i] -= digit * place;    // Remove first digit from ints[i]
+        outputDigit(digit); // Print the verbose digit 
     }
 
     // Print a comma after each integer as long as it's not the last integer
@@ -31,10 +26,10 @@ for(var i = 0; i < ints.length; i++)
     }
 }
 
-function outputDigit(count)
+function outputDigit(digit)
 {
     // Print a digit from 0-9 in its verbose form
-    switch(count)
+    switch(digit)
     {
         case 0:
             process.stdout.write("Zero");
@@ -67,7 +62,7 @@ function outputDigit(count)
             process.stdout.write("Nine");
             break;
         default:
-            process.stdout.write("Error: count > 9");
+            process.stdout.write("Error: digit > 9");
             break;
     }
 }
